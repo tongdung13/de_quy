@@ -23,7 +23,6 @@
                             @else
                                 {{ $item['name'] }}
                             @endif
-
                         </td>
                         <td>
                             @if (!empty($item->unit))
@@ -36,9 +35,5 @@
                 @endforeach
             </tbody>
         </table>
-        <hr>
-        <form action="" method="get">
-            
-        </form>
     </div>
 @endsection
