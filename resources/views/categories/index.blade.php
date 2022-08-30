@@ -19,9 +19,13 @@
                         <td>{{ ++$key }}</td>
                         <td>
                             @if (!empty($item->name))
-                                {{ $item->name }}
+                                <i>
+                                    {{ $item->name }}
+                                </i>
                             @else
-                                {{ $item['name'] }}
+                                <strong>
+                                    {{ $item['name'] }}
+                                </strong>
                             @endif
                         </td>
                         <td>
