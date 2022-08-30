@@ -25,6 +25,9 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->fill($request->all());
+        if (empty($request->get('parent_id'))) {
+            $category->parent_id = 0;
+        }
         $category->save();
 
         return redirect()->route('categories.index');
