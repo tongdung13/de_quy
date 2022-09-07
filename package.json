@@ -17,5 +17,9 @@
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-decoupled-document": "^35.1.0",
+        "bootstrap": "^5.2.0"
     }
 }

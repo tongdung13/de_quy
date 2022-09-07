@@ -26,3 +26,5 @@ Route::middleware('auth-check')->group(function () {
 Route::get('category', 'CategoryController@index')->name('categories.index');
 Route::get('create', 'CategoryController@create')->name('categories.create');
 Route::post('store', 'CategoryController@store')->name('categories.store');
+
+Route::get('post', 'PostController@create');
