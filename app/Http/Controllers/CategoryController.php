@@ -7,18 +7,40 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $category = Category::getHierarchy();
+
+        $current = 1;
+        $page = intval($request['page']);
+
+        if ($page != null) {
+            $current = $page;
+        }
+
+        $collection = collect($category);
+        $lesson = $collection->forPage($current, 10);
+        $chuck = $collection->chunk(10);
+        $total_page = $chuck->count();
+        $list_arr = [];
+        foreach ($lesson as $key => $value) {
+            array_push($list_arr, $value);
+        }
         // return $category;
-        return view('categories.index', compact('category'));
+        return view('categories.index', compact(
+            'category',
+            'page'
+        ));
     }
 
     public function create()
     {
         $category = Category::getHierarchy();
         // return $category;
-        return view('categories.create', compact('category'));
+        return view('categories.create', compact(
+            'category',
+            'page'
+        ));
     }
 
     public function store(Request $request)

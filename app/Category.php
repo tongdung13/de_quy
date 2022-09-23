@@ -36,7 +36,7 @@ class Category extends Model
         if ($subCategories = $category->hasSubCategories) {
             $level++;
             foreach ($subCategories as $subCategory) {
-                $subCategory->name = str_repeat('-', $level) . $subCategory->name;
+                $subCategory->name = str_repeat('&emsp;', $level) . $subCategory->name;
                 $this->categories[] = $subCategory;
                 $this->getParentCategories($subCategory, $level);
             }
@@ -45,6 +45,6 @@ class Category extends Model
 
     public function hasSubCategories()
     {
-        return $this->hasMany($this, 'parent_id');
+        return $this->hasMany($this, 'parent_id', 'id');
     }
 }

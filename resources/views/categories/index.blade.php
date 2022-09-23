@@ -20,7 +20,7 @@
                         <td>
                             @if (!empty($item->name))
                                 <i>
-                                    {{ $item->name }}
+                                    <?php echo $item['name'] ?>
                                 </i>
                             @else
                                 <strong>
@@ -29,11 +29,7 @@
                             @endif
                         </td>
                         <td>
-                            @if (!empty($item->unit))
-                                {{ $item->unit }}
-                            @else
-                                {{ $item['unit'] }}
-                            @endif
+                            {{ $item['unit'] }}
                         </td>
                     </tr>
                 @endforeach
