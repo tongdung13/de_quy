@@ -29,7 +29,7 @@
                             @endif
                         </td>
                         <td>
-                            {{ $item['unit'] }}
+                            {{ $item['cid'] }}
                         </td>
                     </tr>
                 @endforeach

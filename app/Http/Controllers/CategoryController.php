@@ -10,15 +10,11 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $category = Category::getHierarchy();
-        return $category;
-
         $current = 1;
         $page = intval($request['page']);
-
         if ($page != null) {
             $current = $page;
         }
-
         $collection = collect($category);
         $lesson = $collection->forPage($current, 10);
         $chuck = $collection->chunk(10);
@@ -48,9 +44,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->fill($request->all());
-        if (empty($request->get('parent_id'))) {
-            $category->parent_id = 0;
-        }
+        
         $category->save();
 
         return redirect()->route('categories.index');
