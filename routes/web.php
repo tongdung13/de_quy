@@ -29,3 +29,7 @@ Route::get('create', 'CategoryController@create')->name('categories.create');
 Route::post('store', 'CategoryController@store')->name('categories.store');
 
 Route::get('post', 'PostController@create');
+
+Route::prefix('standard')->group(function () {
+    Route::get('create', 'StandardController@create')->name('standards.create');
+});

@@ -10,8 +10,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'unit',
-        'parent_id'
+        'cid'
     ];
 
     public static function getHierarchy(): array
@@ -21,7 +20,7 @@ class Category extends Model
 
     private function getCategories(): array
     {
-        $mainCategories = self::where('parent_id', 0)->get();
+        $mainCategories = self::where('cid', 0)->get();
 
         foreach ($mainCategories as $category) {
             $this->categories[] = $category->toArray();
@@ -45,6 +44,6 @@ class Category extends Model
 
     public function hasSubCategories()
     {
-        return $this->hasMany($this, 'parent_id', 'id');
+        return $this->hasMany($this, 'cid', 'id');
     }
 }

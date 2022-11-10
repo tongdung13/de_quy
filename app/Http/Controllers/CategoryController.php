@@ -10,6 +10,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $category = Category::getHierarchy();
+        return $category;
 
         $current = 1;
         $page = intval($request['page']);
