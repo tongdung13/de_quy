@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\PostLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -15,14 +18,9 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::query()->orderBy('id', 'desc')->get();
-        return response()->json([
-            'status' => 1,
-            'code' => 200,
-            'message' => 'xin chao',
-            'data' => [
-                'post' => $post,
-            ],
-        ]);
+        return view('admin.blogs.index', compact(
+            'post'
+        ));;
     }
 
     /**
@@ -43,7 +41,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required'
+        ], [
+            'title.required' => 'Vui long nhap title',
+            'description.required' => 'Vui long nhap description',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 2,
+                'code' => 200,
+                'message' => $validator->getMessageBag(),
+                'data' => [],
+            ], 200);
+        }
+
         $post = new Post();
+        $post->fill($request->all());
         $post->save();
 
         return response()->json([
@@ -62,9 +78,34 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $posts = Post::find($id);
+
+        if (empty($posts)) {
+            return response()->json([
+                'status' => 2,
+                'code' => 200,
+                'message' => 'Khong tim thay bai post nay',
+                'data' => []
+            ], 200);
+        }
+
+        return view('admin.posts.detail', compact(
+            'posts'
+        ));;
+    }
+
+    public function like(Request $request)
+    {
+        $user = Auth::user();
+        $like = new PostLike();
+        $like->post_id = $request->post;
+        $like->user_id = $user->id;
+        $like->like = 1;
+        $like->save();
+
+        return response()->json($like);
     }
 
     /**

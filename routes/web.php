@@ -19,6 +19,7 @@ Route::get('logout', 'AuthController@logout')->name('logout');
 
 Route::middleware('auth-check')->group(function () {
     Route::get('posts', 'PostController@index')->name('posts');
+    Route::get('posts/show/{id}', 'PostController@show')->name('posts.detail');
     Route::get('user', 'AuthController@index')->name('user');
     Route::get('history/{id}', 'AuthController@history')->name('history');
 });
